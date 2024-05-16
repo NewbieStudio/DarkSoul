@@ -19,13 +19,6 @@ ASoulBaseCharacter::ASoulBaseCharacter()
 	FollowCamera->SetupAttachment(SpringArm);
 }
 
-// Called when the game starts or when spawned
-void ASoulBaseCharacter::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
 // Called every frame
 void ASoulBaseCharacter::Tick(float DeltaTime)
 {
@@ -33,10 +26,29 @@ void ASoulBaseCharacter::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
-void ASoulBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ASoulBaseCharacter::Move(const FInputActionValue& Value)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	FVector2D MovementVector = Value.Get<FVector2D>();
 
+	if (Controller)
+	{
+		const FRotator Rotation = Controller->GetControlRotation();
+
+		const FVector FowardDirection = FRotationMatrix(FRotator(0, Rotation.Yaw, 0)).GetUnitAxis(EAxis::X);
+		const FVector RightDirection = FRotationMatrix(FRotator(0, Rotation.Yaw, 0)).GetUnitAxis(EAxis::Y);
+
+		AddMovementInput(FowardDirection, MovementVector.X);
+		AddMovementInput(RightDirection, MovementVector.Y);
+	}
 }
 
+void ASoulBaseCharacter::Look(const FInputActionValue& Value)
+{
+	FVector2D LookVector = Value.Get<FVector2D>();
+
+	if (Controller)
+	{
+		AddControllerYawInput(LookVector.X);
+		AddControllerPitchInput(LookVector.Y);
+	}
+}

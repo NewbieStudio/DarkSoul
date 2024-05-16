@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "InputActionValue.h"
 #include "SoulBaseCharacter.generated.h"
 
 UCLASS()
@@ -18,12 +21,19 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void Move(const FInputActionValue& Value);
+
+	void Look(const FInputActionValue& Value);
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = PlayerInput)
+	class UInputMappingContext* PlayerMappingContext;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = PlayerInput)
+	class UInputAction* MoveAction;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = PlayerInput)
+	class UInputAction* LookAction;
 
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))

@@ -4,6 +4,7 @@
 #include "DarkSoul/Character/SoulBaseCharacter.h"
 #include <GameFramework/SpringArmComponent.h>
 #include <Camera/CameraComponent.h>
+#include "../SoulPlayerController.h"
 
 // Sets default values
 ASoulBaseCharacter::ASoulBaseCharacter()
@@ -14,6 +15,7 @@ ASoulBaseCharacter::ASoulBaseCharacter()
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
 	SpringArm->TargetArmLength = 300.f;
+	SpringArm->bUsePawnControlRotation = true;
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(SpringArm);
@@ -30,9 +32,9 @@ void ASoulBaseCharacter::Move(const FInputActionValue& Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
-	if (Controller)
+	if (ASoulPlayerController* PC = Cast<ASoulPlayerController>(Controller))
 	{
-		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator Rotation = PC->GetControlRotation();
 
 		const FVector FowardDirection = FRotationMatrix(FRotator(0, Rotation.Yaw, 0)).GetUnitAxis(EAxis::X);
 		const FVector RightDirection = FRotationMatrix(FRotator(0, Rotation.Yaw, 0)).GetUnitAxis(EAxis::Y);

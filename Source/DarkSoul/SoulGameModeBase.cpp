@@ -7,7 +7,7 @@
 
 ASoulGameModeBase::ASoulGameModeBase()
 {
-	static ConstructorHelpers::FClassFinder<ASoulBaseCharacter> BPPlayerClass(TEXT("/Script/Engine.Blueprint'/Game/Game/BP/BP_Player.BP_Player'"));
+	static ConstructorHelpers::FClassFinder<ASoulBaseCharacter> BPPlayerClass(TEXT("/Script/Engine.Blueprint'/Game/Game/BP/BP_Player'"));
 	if (BPPlayerClass.Class)
 	{
 		DefaultPawnClass = BPPlayerClass.Class;

@@ -33,5 +33,11 @@ void ASoulPlayerCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 		{
 			EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASoulBaseCharacter::Look);
 		}
+
+		if (RunAction)
+		{
+			EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Triggered, this, &ASoulBaseCharacter::Run);
+			EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &ASoulBaseCharacter::StopRun);
+		}
 	}
 }

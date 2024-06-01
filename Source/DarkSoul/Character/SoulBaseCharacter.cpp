@@ -3,6 +3,7 @@
 
 #include "DarkSoul/Character/SoulBaseCharacter.h"
 #include <GameFramework/SpringArmComponent.h>
+#include <GameFramework/CharacterMovementComponent.h>
 #include <Camera/CameraComponent.h>
 #include "../SoulPlayerController.h"
 
@@ -19,6 +20,8 @@ ASoulBaseCharacter::ASoulBaseCharacter()
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(SpringArm);
+
+	bRunning = false;
 }
 
 // Called every frame
@@ -53,4 +56,16 @@ void ASoulBaseCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookVector.X);
 		AddControllerPitchInput(LookVector.Y);
 	}
+}
+
+void ASoulBaseCharacter::Run()
+{
+	bRunning = true;
+	GetCharacterMovement()->MaxWalkSpeed = 600.f;
+}
+
+void ASoulBaseCharacter::StopRun()
+{
+	bRunning = false;
+	GetCharacterMovement()->MaxWalkSpeed = 200.f;
 }

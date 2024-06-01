@@ -25,6 +25,13 @@ public:
 
 	void Look(const FInputActionValue& Value);
 
+	void Run();
+
+	void StopRun();
+
+	UPROPERTY(BlueprintReadOnly, Category = Attribute)
+	bool bRunning;
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = PlayerInput)
 	class UInputMappingContext* PlayerMappingContext;
@@ -35,6 +42,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = PlayerInput)
 	class UInputAction* LookAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = PlayerInput)
+	class UInputAction* RunAction;
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;

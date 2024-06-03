@@ -21,4 +21,18 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	virtual void Attack() override;
+
+	void MeleeAttack();
+
+	void SwordAttck();
+
+	bool CanMeleeAttack();
+
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = AnimMontage, meta = (AllowPrivateAccess = "true"))
+	TArray<UAnimMontage*> MeleeAttackAnim;
+
+	int32 LastMeleeAttackIndex;
 };

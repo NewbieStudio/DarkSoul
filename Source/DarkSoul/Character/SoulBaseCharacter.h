@@ -7,6 +7,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include <DarkSoul/SoulEnumType.h>
 #include "SoulBaseCharacter.generated.h"
 
 UCLASS()
@@ -25,12 +26,23 @@ public:
 
 	void Look(const FInputActionValue& Value);
 
+	virtual void Attack();
+
 	void Run();
 
 	void StopRun();
 
 	UPROPERTY(BlueprintReadOnly, Category = Attribute)
 	bool bRunning;
+
+	UPROPERTY(BlueprintReadWrite, Category = Attribute)
+	EWeaponType WeaponType;
+
+	UPROPERTY(BlueprintReadWrite, Category = Attribute)
+	EMeleeType MeleeType;
+
+	UPROPERTY(BlueprintReadWrite, Category = Attribute)
+	EPlayerBehavior PlayerBehavior;
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = PlayerInput)
@@ -44,6 +56,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = PlayerInput)
 	class UInputAction* RunAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = PlayerInput)
+	class UInputAction* AttackAction;
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;

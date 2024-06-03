@@ -22,6 +22,9 @@ ASoulBaseCharacter::ASoulBaseCharacter()
 	FollowCamera->SetupAttachment(SpringArm);
 
 	bRunning = false;
+	WeaponType = EWeaponType::MELEE;
+	MeleeType = EMeleeType::COMMON;
+	PlayerBehavior = EPlayerBehavior::IDLE;
 }
 
 // Called every frame
@@ -56,6 +59,10 @@ void ASoulBaseCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookVector.X);
 		AddControllerPitchInput(LookVector.Y);
 	}
+}
+
+void ASoulBaseCharacter::Attack()
+{
 }
 
 void ASoulBaseCharacter::Run()

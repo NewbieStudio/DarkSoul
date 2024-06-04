@@ -69,6 +69,7 @@ void ASoulPlayerCharacter::MeleeAttack()
 	{
 		if (UAnimInstance* CurAnimIns = GetMesh()->GetAnimInstance())
 		{
+			PlayerBehavior = EPlayerBehavior::ATTACK;
 			int32 AttackAnimIndex = UKismetMathLibrary::RandomIntegerInRange(0, MeleeAttackAnim.Num() - 1);
 			if (LastMeleeAttackIndex != AttackAnimIndex)
 			{

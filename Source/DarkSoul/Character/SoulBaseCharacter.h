@@ -39,7 +39,7 @@ public:
 	EWeaponType WeaponType;
 
 	UPROPERTY(BlueprintReadWrite, Category = Attribute)
-	EMeleeType MeleeType;
+	EWarState WarState;
 
 	UPROPERTY(BlueprintReadWrite, Category = Attribute)
 	EPlayerBehavior PlayerBehavior;

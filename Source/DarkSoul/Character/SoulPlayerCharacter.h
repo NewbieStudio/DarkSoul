@@ -15,6 +15,11 @@ class DARKSOUL_API ASoulPlayerCharacter : public ASoulBaseCharacter
 	GENERATED_BODY()
 
 public:
+	ASoulPlayerCharacter();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -35,4 +40,6 @@ private:
 	TArray<UAnimMontage*> MeleeAttackAnim;
 
 	int32 LastMeleeAttackIndex;
+
+	float BattleToCommonTime;
 };

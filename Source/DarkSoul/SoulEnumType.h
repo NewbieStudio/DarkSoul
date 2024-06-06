@@ -12,7 +12,7 @@ enum class EWeaponType : uint8
 };
 
 UENUM(BlueprintType)
-enum class EMeleeType : uint8
+enum class EWarState : uint8
 {
 	NONE,
 	COMMON,

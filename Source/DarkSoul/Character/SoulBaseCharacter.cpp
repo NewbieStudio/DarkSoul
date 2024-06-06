@@ -23,7 +23,7 @@ ASoulBaseCharacter::ASoulBaseCharacter()
 
 	bRunning = false;
 	WeaponType = EWeaponType::MELEE;
-	MeleeType = EMeleeType::COMMON;
+	WarState = EWarState::COMMON;
 	PlayerBehavior = EPlayerBehavior::IDLE;
 }
 

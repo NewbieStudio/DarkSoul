@@ -6,6 +6,28 @@
 #include <Kismet/KismetMathLibrary.h>
 
 
+ASoulPlayerCharacter::ASoulPlayerCharacter()
+{
+	LastMeleeAttackIndex = 0;
+	BattleToCommonTime = 10.0f;
+}
+
+void ASoulPlayerCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (WarState == EWarState::PREPARE && PlayerBehavior != EPlayerBehavior::ATTACK)
+	{
+		BattleToCommonTime -= DeltaTime;
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Black, FString::Printf(TEXT("BattleToCommon ==> %f"), BattleToCommonTime));
+		if (BattleToCommonTime <= 0)
+		{
+			WarState = EWarState::COMMON;
+			BattleToCommonTime = 10.0f;
+		}
+	}
+}
+
 void ASoulPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -17,8 +39,6 @@ void ASoulPlayerCharacter::BeginPlay()
 			Subsystem->AddMappingContext(PlayerMappingContext, 0);
 		}
 	}
-
-	LastMeleeAttackIndex = 0;
 }
 
 void ASoulPlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -70,6 +90,8 @@ void ASoulPlayerCharacter::MeleeAttack()
 		if (UAnimInstance* CurAnimIns = GetMesh()->GetAnimInstance())
 		{
 			PlayerBehavior = EPlayerBehavior::ATTACK;
+			WarState = EWarState::PREPARE;
+			BattleToCommonTime = 10.0f;
 			int32 AttackAnimIndex = UKismetMathLibrary::RandomIntegerInRange(0, MeleeAttackAnim.Num() - 1);
 			if (LastMeleeAttackIndex != AttackAnimIndex)
 			{
